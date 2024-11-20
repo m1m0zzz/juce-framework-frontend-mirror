@@ -1,0 +1,20 @@
+{
+  "name": "juce-framework-frontend-mirror",
+  "version": "8.0.4",
+  "description": "javascript for JUCE WebBrowserComponent",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "check_native_interop.js"
+  ],
+  "keywords": ["juce", "webview"],
+  "author": "mimoz <contact.m1m0zzz@gmail.com>",
+  "homepage": "https://github.com/m1m0zzz/juce-framework-frontend-mirror",
+  "license": "AGPL-3.0-only",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "https://github.com/m1m0zzz/juce-framework-frontend-mirror.git"
+}
