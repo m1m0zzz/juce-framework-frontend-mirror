@@ -9,12 +9,18 @@
   "files": [
     "check_native_interop.js"
   ],
-  "keywords": ["juce", "webview"],
+  "keywords": [
+    "juce",
+    "webview"
+  ],
   "author": "mimoz <contact.m1m0zzz@gmail.com>",
   "homepage": "https://github.com/m1m0zzz/juce-framework-frontend-mirror",
   "license": "AGPL-3.0-only",
   "publishConfig": {
     "access": "public"
   },
-  "repository": "https://github.com/m1m0zzz/juce-framework-frontend-mirror.git"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m1m0zzz/juce-framework-frontend-mirror.git"
+  }
 }
