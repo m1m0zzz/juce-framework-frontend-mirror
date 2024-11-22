@@ -9,7 +9,8 @@
     "tsc": "tsc"
   },
   "files": [
-    "check_native_interop.js"
+    "check_native_interop.js",
+    "index.d.ts"
   ],
   "keywords": [
     "juce",
