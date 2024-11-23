@@ -1,6 +1,6 @@
 {
   "name": "juce-framework-frontend-mirror",
-  "version": "7.0.10",
+  "version": "7.0.11",
   "description": "javascript for JUCE WebBrowserComponent",
   "main": "index.js",
   "types": "index.d.ts",
