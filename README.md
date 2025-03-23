@@ -7,6 +7,16 @@ mirroring [juce-framework/JUCE/modules/juce_gui_extra/native/javascript](https:/
 npm i juce-framework-frontend-mirror
 ```
 
+## Background of development (ja)
+
+https://mimoz-blog.vercel.app/juce-framework-frontend-mirror
+
+## Issues & Pull Request
+
+First, thank you for your interest in this project.  
+If you find any problems or bugs, please report them in [Issues](https://github.com/m1m0zzz/juce-framework-frontend-mirror/issues/new) first.  
+If you have a solution for it, please send us a Pull Request.
+
 ## Note
 
 npm: https://www.npmjs.com/package/juce-framework-frontend-mirror
