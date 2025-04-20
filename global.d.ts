@@ -5,7 +5,7 @@ Warning: all of these interfaces are empty. If you want type definitions for var
 (such as HTMLInputElement.prototype.value), you need to add `--lib DOM` (via command line or tsconfig.json).
 */
 
-interface Element {}
+interface Element {};
 
 // ============================================================================
 
@@ -50,3 +50,5 @@ declare global {
     postMessage: () => void
   }
 }
+
+export {};
