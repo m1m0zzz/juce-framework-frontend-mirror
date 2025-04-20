@@ -158,7 +158,7 @@ if (
      * @param {[eventId: string, id: number]} param0
      */
     removeEventListener([eventId, id]) {
-      this.listeners.removeEventListener(eventId, id);
+      this.listeners.removeEventListener([eventId, id]);
     }
 
     /**
