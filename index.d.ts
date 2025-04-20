@@ -1,14 +1,81 @@
-export class PromiseHandler {
-  lastPromiseId: number;
-  promises: Map<number, any>;
-  createPromise(): [number, Promise<any>];
-}
-export class ListenerList {
-  listeners: Map<number, any>;
-  listenerId: number;
-  addListener(fn: any): number;
-  removeListener(id: any): void;
-  callListeners(payload: any): void;
+/// <reference path="global.d.ts" />
+
+/**
+ * Returns a function object that calls a function registered on the JUCE backend and forwards all
+ * parameters to it.
+ *
+ * The provided name should be the same as the name argument passed to
+ * WebBrowserComponent::Options.withNativeFunction() on the backend.
+ *
+ * @param {string} name
+ */
+export function getNativeFunction(name: string): (...args: any[]) => Promise<any>;
+/**
+ * Returns a SliderState object that is connected to the backend WebSliderRelay object that was
+ * created with the same name argument.
+ *
+ * To register a WebSliderRelay object create one with the right name and add it to the
+ * WebBrowserComponent::Options struct using withOptionsFrom.
+ *
+ * @param {string} name
+ */
+export function getSliderState(name: string): SliderState | undefined;
+/**
+ * Returns a ToggleState object that is connected to the backend WebToggleButtonRelay object that was
+ * created with the same name argument.
+ *
+ * To register a WebToggleButtonRelay object create one with the right name and add it to the
+ * WebBrowserComponent::Options struct using withOptionsFrom.
+ *
+ * @param {string} name
+ */
+export function getToggleState(name: string): ToggleState | undefined;
+/**
+ * Returns a ComboBoxState object that is connected to the backend WebComboBoxRelay object that was
+ * created with the same name argument.
+ *
+ * To register a WebComboBoxRelay object create one with the right name and add it to the
+ * WebBrowserComponent::Options struct using withOptionsFrom.
+ *
+ * @param {string} name
+ */
+export function getComboBoxState(name: string): ComboBoxState | undefined;
+/**
+ * Appends a platform-specific prefix to the path to ensure that a request sent to this address will
+ * be received by the backend's ResourceProvider.
+ * @param {string} path
+ */
+export function getBackendResourceAddress(path: string): string;
+/**
+ * This helper class is intended to aid the implementation of
+ * AudioProcessorEditor::getControlParameterIndex() for editors using a WebView interface.
+ *
+ * Create an instance of this class and call its handleMouseMove() method in each mousemove event.
+ *
+ * This class can be used to continuously report the controlParameterIndexAnnotation attribute's
+ * value related to the DOM element that is currently under the mouse pointer.
+ *
+ * This value is defined at all times as follows
+ * * the annotation attribute's value for the DOM element directly under the mouse, if it has it,
+ * * the annotation attribute's value for the first parent element, that has it,
+ * * -1 otherwise.
+ *
+ * Whenever there is a change in this value, an event is emitted to the frontend with the new value.
+ * You can use a ControlParameterIndexReceiver object on the backend to listen to these events.
+ */
+export class ControlParameterIndexUpdater {
+  /**
+   * @param {string} controlParameterIndexAnnotation
+   */
+  constructor(controlParameterIndexAnnotation: string);
+  /** @type {string} */
+  controlParameterIndexAnnotation: string;
+  /** @type {Element | null} */
+  lastElement: Element | null;
+  /** @type {string | -1 | null} */
+  lastControlParameterIndex: string | -1 | null;
+  handleMouseMove(event: any): void;
+  #private;
 }
 /**
  * SliderState encapsulates data and callbacks that are synchronised with a WebSliderRelay object
@@ -16,10 +83,11 @@ export class ListenerList {
  *
  * Use getSliderState() to create a SliderState object. This object will be synchronised with the
  * WebSliderRelay backend object that was created using the same unique name.
- *
- * @param {String} name
  */
-export class SliderState {
+declare class SliderState {
+  /**
+   * @param {string} name
+   */
   constructor(name: string);
   name: string;
   identifier: string;
@@ -43,7 +111,7 @@ export class SliderState {
    * The meaning of this range is the same as in the case of
    * AudioProcessorParameter::getValue() (C++).
    *
-   * @param {String} name
+   * @param {number} newValue
    */
   setNormalisedValue(newValue: number): void;
   /**
@@ -68,13 +136,19 @@ export class SliderState {
    *
    * The meaning of this range is the same as in the case of
    * AudioProcessorParameter::getValue() (C++).
-   *
-   * @param {String} name
    */
   getNormalisedValue(): number;
-  /** Internal. */
+  /**
+   * @param {number} normalisedValue
+   * @returns {number}
+   * @internal
+   */
   normalisedToScaledValue(normalisedValue: number): number;
-  /** Internal. */
+  /**
+   * @param {number} value
+   * @returns {number}
+   * @internal
+   */
   snapToLegalValue(value: number): number;
 }
 /**
@@ -83,10 +157,11 @@ export class SliderState {
  *
  * Use getToggleState() to create a ToggleState object. This object will be synchronised with the
  * WebToggleRelay backend object that was created using the same unique name.
- *
- * @param {String} name
  */
-export class ToggleState {
+declare class ToggleState {
+  /**
+   * @param {string} name
+   */
   constructor(name: string);
   name: string;
   identifier: string;
@@ -99,7 +174,10 @@ export class ToggleState {
   propertiesChangedEvent: ListenerList;
   /** Returns the value corresponding to the associated WebToggleRelay's (C++) state. */
   getValue(): boolean;
-  /** Informs the backend to change the associated WebToggleRelay's (C++) state. */
+  /**
+   * Informs the backend to change the associated WebToggleRelay's (C++) state.
+   * @param {boolean} newValue
+   */
   setValue(newValue: boolean): void;
   /** Internal. */
   handleEvent(event: any): void;
@@ -110,10 +188,11 @@ export class ToggleState {
  *
  * Use getComboBoxState() to create a ComboBoxState object. This object will be synchronised with the
  * WebComboBoxRelay backend object that was created using the same unique name.
- *
- * @param {String} name
  */
-export class ComboBoxState {
+declare class ComboBoxState {
+  /**
+   * @param {string} name
+   */
   constructor(name: string);
   name: string;
   identifier: string;
@@ -137,81 +216,25 @@ export class ComboBoxState {
    *
    * This should be called with the index identifying the selected element from the
    * properties.choices array.
+   *
+   * @param {number} index
    */
   setChoiceIndex(index: number): void;
   /** Internal. */
   handleEvent(event: any): void;
 }
-/**
- * Returns a function object that calls a function registered on the JUCE backend and forwards all
- * parameters to it.
- *
- * The provided name should be the same as the name argument passed to
- * WebBrowserComponent::Options.withNativeFunction() on the backend.
- *
- * @param {String} name
- */
-export function getNativeFunction(name: string): (...args: any[]) => number | Promise<any>;
-/**
- * Returns a SliderState object that is connected to the backend WebSliderRelay object that was
- * created with the same name argument.
- *
- * To register a WebSliderRelay object create one with the right name and add it to the
- * WebBrowserComponent::Options struct using withOptionsFrom.
- *
- * @param {String} name
- */
-export function getSliderState(name: string): SliderState;
-/**
- * Returns a ToggleState object that is connected to the backend WebToggleButtonRelay object that was
- * created with the same name argument.
- *
- * To register a WebToggleButtonRelay object create one with the right name and add it to the
- * WebBrowserComponent::Options struct using withOptionsFrom.
- *
- * @param {String} name
- */
-export function getToggleState(name: string): ToggleState;
-/**
- * Returns a ComboBoxState object that is connected to the backend WebComboBoxRelay object that was
- * created with the same name argument.
- *
- * To register a WebComboBoxRelay object create one with the right name and add it to the
- * WebBrowserComponent::Options struct using withOptionsFrom.
- *
- * @param {String} name
- */
-export function getComboBoxState(name: string): ComboBoxState;
-/**
- * Appends a platform-specific prefix to the path to ensure that a request sent to this address will
- * be received by the backend's ResourceProvider.
- * @param {String} path
- */
-export function getBackendResourceAddress(path: string): string;
-/**
- * This helper class is intended to aid the implementation of
- * AudioProcessorEditor::getControlParameterIndex() for editors using a WebView interface.
- *
- * Create an instance of this class and call its handleMouseMove() method in each mousemove event.
- *
- * This class can be used to continuously report the controlParameterIndexAnnotation attribute's
- * value related to the DOM element that is currently under the mouse pointer.
- *
- * This value is defined at all times as follows
- * * the annotation attribute's value for the DOM element directly under the mouse, if it has it,
- * * the annotation attribute's value for the first parent element, that has it,
- * * -1 otherwise.
- *
- * Whenever there is a change in this value, an event is emitted to the frontend with the new value.
- * You can use a ControlParameterIndexReceiver object on the backend to listen to these events.
- *
- * @param {String} controlParameterIndexAnnotation
- */
-export class ControlParameterIndexUpdater {
-  constructor(controlParameterIndexAnnotation: any);
-  controlParameterIndexAnnotation: any;
-  lastElement: any;
-  lastControlParameterIndex: any;
-  handleMouseMove(event: any): void;
-  #private;
+declare class ListenerList {
+  /** @type {Map<number, (args: any) => any>} */
+  listeners: Map<number, (args: any) => any>;
+  listenerId: number;
+  /**
+   * @param {(args: any) => any} fn
+   */
+  addListener(fn: (args: any) => any): number;
+  /**
+   * @param {number} id
+   */
+  removeListener(id: number): void;
+  callListeners(payload: any): void;
 }
+export {};

@@ -9,8 +9,10 @@
     "tsc": "tsc"
   },
   "files": [
+    "index.js",
     "check_native_interop.js",
-    "index.d.ts"
+    "index.d.ts",
+    "global.d.ts"
   ],
   "keywords": [
     "juce",
@@ -18,7 +20,7 @@
   ],
   "author": "mimoz <contact.m1m0zzz@gmail.com>",
   "homepage": "https://github.com/m1m0zzz/juce-framework-frontend-mirror",
-  "license": "AGPL-3.0-only",
+  "license": "AGPL-3.0",
   "publishConfig": {
     "access": "public"
   },

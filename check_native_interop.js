@@ -68,16 +68,25 @@ if (
 
   class ListenerList {
     constructor() {
+      /** @type {Map<number, (args: any) => any>} */
       this.listeners = new Map();
+      /** @type {number} */
       this.listenerId = 0;
     }
 
+    /**
+     * @param {(args: any) => any} fn
+     * @returns number
+     */
     addListener(fn) {
       const newListenerId = this.listenerId++;
       this.listeners.set(newListenerId, fn);
       return newListenerId;
     }
 
+    /**
+     * @param {number} id
+     */
     removeListener(id) {
       if (this.listeners.has(id)) {
         this.listeners.delete(id);
@@ -93,9 +102,15 @@ if (
 
   class EventListenerList {
     constructor() {
+      /** @type {Map<any, ListenerList>} */
       this.eventListeners = new Map();
     }
 
+    /**
+     * @param {string} eventId
+     * @param {(args: any) => any} fn
+     * @returns {[string, number]}
+     */
     addEventListener(eventId, fn) {
       if (!this.eventListeners.has(eventId))
         this.eventListeners.set(eventId, new ListenerList());
@@ -105,12 +120,19 @@ if (
       return [eventId, id];
     }
 
+    /**
+     * @param {[eventId: string, id: number]}
+     */
     removeEventListener([eventId, id]) {
       if (this.eventListeners.has(eventId)) {
         this.eventListeners.get(eventId).removeListener(id);
       }
     }
 
+    /**
+     * @param {string} eventId
+     * @param {any} object
+     */
     emitEvent(eventId, object) {
       if (this.eventListeners.has(eventId))
         this.eventListeners.get(eventId).callListeners(object);
@@ -119,23 +141,40 @@ if (
 
   class Backend {
     constructor() {
+      /** @type {EventListenerList} */
       this.listeners = new EventListenerList();
     }
 
+    /**
+     * @param {string} eventId
+     * @param {(args: any) => any} fn
+     * @returns {[string, number]}
+     */
     addEventListener(eventId, fn) {
       return this.listeners.addEventListener(eventId, fn);
     }
 
+    /**
+     * @param {[eventId: string, id: number]} param0
+     */
     removeEventListener([eventId, id]) {
       this.listeners.removeEventListener(eventId, id);
     }
 
+    /**
+     * @param {string} eventId
+     * @param {any} object
+     */
     emitEvent(eventId, object) {
       window.__JUCE__.postMessage(
         JSON.stringify({ eventId: eventId, payload: object })
       );
     }
 
+    /**
+     * @param {string} eventId
+     * @param {any} object
+     */
     emitByBackend(eventId, object) {
       this.listeners.emitEvent(eventId, JSON.parse(object));
     }
