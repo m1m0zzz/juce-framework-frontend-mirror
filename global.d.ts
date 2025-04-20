@@ -37,7 +37,7 @@ declare class Backend {
 declare global {
   var __JUCE__: {
     backend: Backend
-    initialisationData: object
+    initialisationData: {[key: string]: any}
     // Note: Hidden for internal implementation.
     // | {
     //   __juce__platform: string[],
