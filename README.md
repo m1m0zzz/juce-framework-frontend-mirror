@@ -4,8 +4,16 @@ mirroring [juce-framework/JUCE/modules/juce_gui_extra/native/javascript](https:/
 ## Install
 
 ```bash
-npm i juce-framework-frontend-mirror
+npm i juce-framework-frontend-mirror@next
 ```
+
+## This project is not semver.
+
+I gave up semver to match the version with JUCE from which it was mirrored.
+
+And I decided to use the RC (release candidate) version when upgrading for patches.
+
+So please use `npm i juce-framework-frontend-mirror@next` to get the latest version of the package.
 
 ## Background of development (ja)
 
