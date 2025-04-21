@@ -5,6 +5,9 @@ Warning: all of these interfaces are empty. If you want type definitions for var
 (such as HTMLInputElement.prototype.value), you need to add `--lib DOM` (via command line or tsconfig.json).
 */
 
+interface Event {};
+interface MouseEvent extends Event {};
+
 interface Element {};
 
 // ============================================================================
@@ -21,7 +24,7 @@ declare class Backend {
   /**
    * @param {[eventId: string, id: number]} param0
    */
-  removeEventListener([eventId, id]: [eventId: string, id: number]): void;
+  removeEventListener([eventId, id]: [string, number]): void;
   /**
    * @param {string} eventId
    * @param {any} object

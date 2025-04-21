@@ -427,7 +427,7 @@ class ComboBoxState {
     this.properties = {
       name: "",
       parameterIndex: -1,
-      /** @type {any[]} */
+      /** @type {string[]} */
       choices: [],
     };
     this.valueChangedEvent = new ListenerList();
@@ -560,6 +560,9 @@ class ControlParameterIndexUpdater {
     this.lastControlParameterIndex = null;
   }
 
+  /**
+   * @param {MouseEvent} event
+   */
   handleMouseMove(event) {
     const currentElement = document.elementFromPoint(
       event.clientX,

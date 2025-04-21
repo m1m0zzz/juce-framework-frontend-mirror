@@ -74,7 +74,10 @@ export class ControlParameterIndexUpdater {
   lastElement: Element | null;
   /** @type {string | -1 | null} */
   lastControlParameterIndex: string | -1 | null;
-  handleMouseMove(event: any): void;
+  /**
+   * @param {MouseEvent} event
+   */
+  handleMouseMove(event: MouseEvent): void;
   #private;
 }
 /**
@@ -200,7 +203,8 @@ declare class ComboBoxState {
   properties: {
     name: string;
     parameterIndex: number;
-    choices: never[];
+    /** @type {string[]} */
+    choices: string[];
   };
   valueChangedEvent: ListenerList;
   propertiesChangedEvent: ListenerList;
