@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write
+      id-token: write # Required for OIDC
 
     strategy:
       matrix:
@@ -25,11 +25,14 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         registry-url: 'https://registry.npmjs.org'
+
+    # Ensure npm 11.5.1 or later is installed
+    - name: Update npm
+      run: npm install -g npm@latest
+
     - name: Install dependencies
       run: npm ci
     # - name: Test
     #   run: npm run test
     - name: Publish
-      run: npm publish --provenance
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: npm publish
