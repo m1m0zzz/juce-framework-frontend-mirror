@@ -1,4 +1,5 @@
 # juce-framework-frontend-mirror
+
 mirroring [juce-framework/JUCE/modules/juce_gui_extra/native/javascript](https://github.com/juce-framework/JUCE/tree/master/modules/juce_gui_extra/native/javascript)
 
 ## Install
@@ -7,11 +8,11 @@ mirroring [juce-framework/JUCE/modules/juce_gui_extra/native/javascript](https:/
 npm i juce-framework-frontend-mirror
 ```
 
-## This project is not semver.
+## This project is not semver
 
 I gave up semver to match the version with JUCE from which it was mirrored.
 
-And I decided to use the RC (release candidate) version when upgrading for patches.
+<!-- And I decided to use the RC (release candidate) version when upgrading for patches. -->
 
 ## Background of development (ja)
 
