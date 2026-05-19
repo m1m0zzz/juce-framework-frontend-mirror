@@ -18,7 +18,7 @@ I gave up semver to match the version with JUCE from which it was mirrored.
 
 ## Background of development (ja)
 
-[juce-framework-frontend-mirror の紹介 | m1m0zzzのブログ](https://mimoz-blog.vercel.app/juce-framework-frontend-mirror)
+[juce-framework-frontend-mirror の紹介 | m1m0zzzのブログ](https://mimoz-blog.vercel.app/2024/juce-framework-frontend-mirror)
 
 ## Issues & Pull Request
 
