@@ -29,6 +29,6 @@
     "url": "git+https://github.com/m1m0zzz/juce-framework-frontend-mirror.git"
   },
   "devDependencies": {
-    "typescript": "5.9.3"
+    "typescript": "7.0.2"
   }
 }
