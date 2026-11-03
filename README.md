@@ -1,5 +1,14 @@
 # juce-framework-frontend-mirror
 
+> [!WARNING]
+> **This package is deprecated.**
+> Since JUCE 9.0.1, the official TypeScript package [`@juce-framework/webview`](https://www.npmjs.com/package/@juce-framework/webview) is available. Please migrate to it.
+>
+> - [Migration guide](https://github.com/m1m0zzz/juce-framework-frontend-mirror/blob/main/docs/migration.md)
+> - [移行ガイド (日本語)](https://github.com/m1m0zzz/juce-framework-frontend-mirror/blob/main/docs/migration-ja.md)
+>
+> `juce-framework-frontend-mirror@8.0.10` remains usable for JUCE 8.0.0 – 9.0.0.
+
 mirroring [juce-framework/JUCE/modules/juce_gui_extra/native/javascript](https://github.com/juce-framework/JUCE/tree/master/modules/juce_gui_extra/native/javascript)
 
 [npm](https://www.npmjs.com/package/juce-framework-frontend-mirror)
